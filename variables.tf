@@ -531,6 +531,96 @@ variable "organizations_changes_enabled" {
   default     = true
 }
 
+variable "unauthorized_api_calls_pattern" {
+  description = "Pattern for unauthorized_api_calls metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "no_mfa_console_signin_pattern" {
+  description = "Pattern for no_mfa_console_signin metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "root_usage_pattern" {
+  description = "Pattern for root_usage metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "iam_changes_pattern" {
+  description = "Pattern for iam_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "cloudtrail_cfg_changes_pattern" {
+  description = "Pattern for cloudtrail_cfg_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "console_signin_failures_pattern" {
+  description = "Pattern for console_signin_failures metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "disable_or_delete_cmk_pattern" {
+  description = "Pattern for disable_or_delete_cmk metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "s3_bucket_policy_changes_pattern" {
+  description = "Pattern for s3_bucket_policy_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "aws_config_changes_pattern" {
+  description = "Pattern for aws_config_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "security_group_changes_pattern" {
+  description = "Pattern for security_group_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "nacl_changes_pattern" {
+  description = "Pattern for nacl_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "network_gw_changes_pattern" {
+  description = "Pattern for network_gw_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "route_table_changes_pattern" {
+  description = "Pattern for route_table_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_changes_pattern" {
+  description = "Pattern for vpc_changes metric filter"
+  type        = string
+  default     = ""
+}
+
+variable "organizations_changes_pattern" {
+  description = "Pattern for organizations_changes metric filter"
+  type        = string
+  default     = ""
+}
+
 # --------------------------------------------------------------------------------------------------
 # Variables for guardduty-baseline module.
 # --------------------------------------------------------------------------------------------------
