@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       - name: Terraform min/max versions
         id: minMax
         uses: clowdhaus/terraform-min-max@v1.0.4
@@ -27,9 +27,9 @@ jobs:
         shell: bash
         working-directory: examples
     steps:
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2 (no node24 yet — needs replacement before 2026-09-16)
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       - name: Check examples
         env:
           EXAMPLES: simple external-bucket select-region organization/master organization/member
