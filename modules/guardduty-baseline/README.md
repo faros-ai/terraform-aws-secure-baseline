@@ -8,13 +8,13 @@ Enable GuardDuty in all regions.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.3 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.22 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.3 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.22 |
 
 ## Inputs
 
@@ -24,7 +24,8 @@ Enable GuardDuty in all regions.
 | <a name="input_finding_publishing_frequency"></a> [finding\_publishing\_frequency](#input\_finding\_publishing\_frequency) | Specifies the frequency of notifications sent for subsequent finding occurrences. | `string` | no |
 | <a name="input_invitation_message"></a> [invitation\_message](#input\_invitation\_message) | Message for invitation. | `string` | no |
 | <a name="input_master_account_id"></a> [master\_account\_id](#input\_master\_account\_id) | AWS account ID for master account. | `string` | no |
-| <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | A list of IDs and emails of AWS accounts which associated as member accounts. | <pre>list(object({<br/>    account_id = string<br/>    email      = string<br/>  }))</pre> | no |
+| <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | A list of IDs and emails of AWS accounts which associated as member accounts. | <pre>list(object({<br>    account_id = string<br>    email      = string<br>  }))</pre> | no |
+| <a name="input_s3_data_events_enabled"></a> [s3\_data\_events\_enabled](#input\_s3\_data\_events\_enabled) | Whether this module manages and enables GuardDuty S3 data event protection. Set to false when the detector feature is managed separately. | `bool` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Specifies object tags key and value. This applies to all resources created by this module. | `map(string)` | no |
 
 ## Outputs
