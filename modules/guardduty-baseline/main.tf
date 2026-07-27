@@ -7,7 +7,7 @@ resource "aws_guardduty_detector" "default" {
 
 # Detector features cannot be managed individually in member accounts.
 resource "aws_guardduty_detector_feature" "s3_data_events" {
-  count = var.s3_data_events_enabled && var.master_account_id == "" ? 1 : 0
+  count = (var.s3_data_events_enabled && var.master_account_id == "") ? 1 : 0
 
   detector_id = aws_guardduty_detector.default.id
   name        = "S3_DATA_EVENTS"
