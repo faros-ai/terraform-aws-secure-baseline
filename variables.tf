@@ -649,6 +649,12 @@ variable "guardduty_finding_publishing_frequency" {
   default     = "SIX_HOURS"
 }
 
+variable "guardduty_s3_data_events_enabled" {
+  description = "Whether this module manages and enables GuardDuty S3 data event protection. Set to false when the detector feature is managed separately."
+  type        = bool
+  default     = true
+}
+
 variable "guardduty_invitation_message" {
   description = "Message for invitation."
   type        = string

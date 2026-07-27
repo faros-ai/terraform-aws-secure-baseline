@@ -2,18 +2,16 @@ resource "aws_guardduty_detector" "default" {
   enable                       = true
   finding_publishing_frequency = var.finding_publishing_frequency
 
-  # datasources can't be individually managed in each member account.
-  dynamic "datasources" {
-    for_each = var.master_account_id == "" ? [var.master_account_id] : []
-
-    content {
-      s3_logs {
-        enable = true
-      }
-    }
-  }
-
   tags = var.tags
+}
+
+# Detector features cannot be managed individually in member accounts.
+resource "aws_guardduty_detector_feature" "s3_data_events" {
+  count = (var.s3_data_events_enabled && var.master_account_id == "") ? 1 : 0
+
+  detector_id = aws_guardduty_detector.default.id
+  name        = "S3_DATA_EVENTS"
+  status      = "ENABLED"
 }
 
 resource "aws_guardduty_member" "members" {
