@@ -1,4 +1,30 @@
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "access_log_policy" {
+  statement {
+    sid       = "AllowS3ServerAccessLogs"
+    effect    = "Allow"
+    actions   = ["s3:PutObject"]
+    resources = ["${aws_s3_bucket.access_log.arn}/*"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["logging.s3.amazonaws.com"]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = [aws_s3_bucket.content.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+  }
+
   statement {
     actions = ["s3:*"]
     effect  = "Deny"
@@ -25,9 +51,15 @@ resource "aws_s3_bucket" "access_log" {
   tags = var.tags
 }
 
-resource "aws_s3_bucket_acl" "access_log" {
+resource "aws_s3_bucket_ownership_controls" "access_log" {
   bucket = aws_s3_bucket.access_log.id
-  acl    = "log-delivery-write"
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+
+  # Install the replacement log delivery permission before disabling ACLs.
+  depends_on = [aws_s3_bucket_policy.access_log_policy]
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "access_log" {
@@ -86,9 +118,12 @@ resource "aws_s3_bucket" "content" {
   ]
 }
 
-resource "aws_s3_bucket_acl" "content" {
+resource "aws_s3_bucket_ownership_controls" "content" {
   bucket = aws_s3_bucket.content.id
-  acl    = "private"
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "content" {
@@ -107,6 +142,11 @@ resource "aws_s3_bucket_logging" "content" {
 
   target_bucket = aws_s3_bucket.access_log.id
   target_prefix = ""
+
+  depends_on = [
+    aws_s3_bucket_policy.access_log_policy,
+    aws_s3_bucket_ownership_controls.access_log,
+  ]
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "content" {
