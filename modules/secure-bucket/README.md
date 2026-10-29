@@ -2,6 +2,23 @@
 
 Creates a S3 bucket with access logging enabled.
 
+Both buckets use `BucketOwnerEnforced` Object Ownership with ACLs disabled. Server
+access logs are delivered through a bucket policy restricted to the content bucket
+and its AWS account. Public access blocking and HTTPS enforcement remain enabled.
+
+For existing deployments, follow the [ACL migration guide](../../docs/upgrade-disable-acls.md)
+before applying this change. New deployments need no migration.
+
+To run the policy and ownership tests locally, use Terraform 1.7 or later:
+
+```sh
+terraform -chdir=modules/secure-bucket init -backend=false
+terraform -chdir=modules/secure-bucket test
+```
+
+Run these commands from the repository root. All AWS resources and the caller
+identity are overridden during tests; policy documents are evaluated locally.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

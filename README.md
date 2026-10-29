@@ -108,6 +108,7 @@ This module is composed of several submodules and each of which can be used inde
 
 ## Compatibility
 
+- Existing deployments must follow the [ACL migration guide](./docs/upgrade-disable-acls.md) before upgrading to the version that disables secure-bucket ACLs. New deployments need no migration.
 - Starting from v1.0, this module requires [Terraform Provider for AWS](https://github.com/terraform-providers/terraform-provider-aws) v4.0 or later. [Version 1.0 Upgrade Guide](./docs/upgrade-1.0.md) described the recommended procedure after the upgrade.
 - Starting from v0.20, this module requires [Terraform Provider for AWS](https://github.com/terraform-providers/terraform-provider-aws) v3.0 or later. Please use v0.19 if you need to use v2.x or earlier.
 - Starting from v0.10, this module requires Terraform v0.12 or later. Please use v0.9 if you need to use Terraform v0.11 or ealier.
